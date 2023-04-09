@@ -3,6 +3,10 @@ Danny Nguyen
 A01353084
 """
 import random
+from challenge.challenge_level_one import level_one_games
+from challenge.challenge_level_two import level_two_games
+from challenge.challenge_level_three import level_three_games
+from challenge.final_game import final_game
 
 
 def make_board(rows: int, columns: int) -> dict:
@@ -29,7 +33,7 @@ def make_character(name) -> dict:
 
     A function that creates a character, with the starting coordinates and HP.
 
-    :return: a dictionary that contains "Floor" and "Room" are equal to 0, "Current HP" is equal to 5
+    :return: a dictionary that contains information about the character
 
     >>> player = make_character()
     >>> player
@@ -40,14 +44,16 @@ def make_character(name) -> dict:
     {'Floor': 0, 'Room': 0, 'Current HP': 5}
 
     """
-    return {'Name': name, 'Floor': 4, 'Room': 0, 'Max Health': 5, 'Health': 5, 'Level': 1, 'EXP To Level Up': 30}
+    return {'Name': name, 'Floor': 4, 'Room': 0, 'Max Health': 5, 'Health': 5, 'Level': 1, 'EXP To Level Up': 30,
+            "Level One Games": ['riddle', 'word', 'number'],
+            "Level Two Games": ['riddle', 'word_a', 'word_b', 'number']}
 
 
 def describe_current_location(board: dict, character: dict) -> None:
     """
-    Describe current location.
+    Describe current location and character information.
 
-    A function that tells which row and column the user at, with the name of the room and HP user has left.
+    A function that tells character information: Floor, Room, Room Name, Health Point, Level, and EXP To Level Up
 
     :param board: a dictionary
     :param character: a dictionary
@@ -59,12 +65,17 @@ def describe_current_location(board: dict, character: dict) -> None:
     name = character["Name"]
     floor = character["Floor"]
     room = character["Room"]
+    room_name = board[floor, room]
     hp = character["Health"]
     level = character["Level"]
     next_level = character["EXP To Level Up"]
-    print(f"{name} is at floor {floor+1}, room {room+1}, The {board[(floor, room)]},"
-          f" with {hp} health point(s) remaining, and {next_level} experience points to level up."
-          f"You are level {level}")
+    print(f"\nInformation about {name}: \n"
+          f"Floor: {floor + 1} |  "
+          f"Room: {room + 1} |  "
+          f"Room Name: {room_name} | "
+          f"Health Point: {hp} |  "
+          f"Level: {level} |  "
+          f"EXP To Level Up: {next_level} \n")
 
 
 def level_up(character: dict) -> dict:
@@ -210,7 +221,15 @@ def check_if_goal_attained(character: dict) -> bool:
     if character["EXP To Level Up"] <= 0:
         level_up(character)
     if character["Floor"] == 0 and character["Room"] == 4 and character["Level"] >= 3:
-        print(f"Congratulations! You reached your destination!")
+        print(f"Congratulations! You reached your destination!\n\n"
+              f"Now, let's go through your final challenge!\n\n")
+        win = final_game(character)
+        if win:
+            print(f"---------------------------------------------------------------------\n"
+                  f"| Congratulations! You finish the final challenge and win the game! |\n"
+                  f"---------------------------------------------------------------------")
+        else:
+            print(f"You lost the game!")
         return True
     else:
         return False
@@ -226,44 +245,56 @@ def check_for_challenge() -> bool:
     :return: a boolean: True if there are challenge; False if not
 
     """
-    number = random.randint(1, 2)
-    if number == 1:
+    number = random.randint(1, 3)
+    if number != 3:
         return True
     else:
         return False
 
 
-def caution_one_point(character):
+def caution_one_point(character: dict) -> None:
     if character["Health"] == 1:
-        print(f"WARNING: If you get one more wrong guess, you will lose the game! Be careful.\n")
+        print(f"WARNING: If you get one more wrong guess, you will lose the challenge! Be careful.\n")
 
 
-def guessing_game(character: dict, upper: int) -> None:
+def challenge_in_game(character: dict) -> None:
     """
-    A guessing game.
+    A challenge in challenge.
 
-    A function that creates a game that requires user to guess a random number generated.
+    A function that creates a challenge that requires user to guess a random number generated.
 
     :param character: a dictionary
-    :param upper: an integer
     :precondition: character must be a dictionary that is returned by make_character function
     :precondition: upper must be a non-zero positive integer
-    :post-condition: define and run the game correctly
+    :post-condition: define and run the challenge correctly
 
     """
-    secret_number = str(random.randint(1, upper))
-    print(f"Opponents ahead! Guess the correct number to beat them.\n")
     caution_one_point(character)
-    guess = input(f"Enter a number from 1 to {upper}: ")
-    if guess == secret_number:
-        character["EXP To Level Up"] -= 10
-        if character["Health"] < character["Max Health"]:
-            character["Health"] += 1
-        print(f"You're right! It's {guess}.\n")
+    if character["Level"] == 1:
+        win = level_one_games(random.choice(character["Level One Games"]))
+        if win:
+            character["EXP To Level Up"] -= 10
+            if character["Health"] < character["Max Health"]:
+                character["Health"] += 1
+        else:
+            character["Health"] -= 1
+
+    elif character["Level"] == 2:
+        win = level_two_games(random.choice(character["Level Two Games"]))
+        if win:
+            character["EXP To Level Up"] -= 10
+            if character["Health"] < character["Max Health"]:
+                character["Health"] += 1
+        else:
+            character["Health"] -= 1
     else:
-        print(f"It's {secret_number}. You guessed it wrong! Losing 1 HP.\n")
-        character["Health"] -= 1
-        caution_one_point(character)
+        win = level_three_games()
+        if win:
+            character["EXP To Level Up"] -= 10
+            if character["Health"] < character["Max Health"]:
+                character["Health"] += 1
+        else:
+            character["Health"] -= 1
 
 
 def is_alive(character: dict) -> bool:
@@ -297,15 +328,14 @@ def is_alive(character: dict) -> bool:
 
 def game() -> None:
     """
-    Runs the game.
+    Runs the challenge.
     """
     rows = 5
     columns = 5
-    upper = 1
     board = make_board(rows, columns)
     print(f"--------------------------------------------------------------------------------------------------------"
           f"\n\n\n"
-          f"Welcome to the game!\n"
+          f"Welcome to the challenge!\n"
           f"You need to beat the boss at floor 1 room 5 after you reach level 3 to win!\n")
     name = input('Enter your user name: ')
     character = make_character(name)
@@ -318,12 +348,12 @@ def game() -> None:
             move_character(character, direction)
             there_is_a_challenger = check_for_challenge()
             if there_is_a_challenger:
-                guessing_game(character, upper)
+                challenge_in_game(character)
             achieved_goal = check_if_goal_attained(character)
         else:
             print(f"That's not a valid move. Please try again!\n")
     if not is_alive(character):
-        print(f"You lost the game!")
+        print(f"You lost the challenge!")
 
 
 def main():
@@ -331,6 +361,7 @@ def main():
     Drives the program.
     """
 
+    # challenge()
     game()
 
 
