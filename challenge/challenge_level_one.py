@@ -4,9 +4,27 @@ A01353084
 """
 
 
-def level_one_games(game):
+def level_one_games(game: str) -> bool:
+    """
+    A level one game.
 
-    def challenge_level_one_number():
+    A function that picks the game follow the input.
+
+    :param game: a string
+    :post-condition: pick and show the game correctly
+    :return: a boolean: True if user wins the game; False if not
+
+    """
+
+    def challenge_level_one_number() -> bool:
+        """
+        A guess number game.
+
+        A function that tells the user to guess the next number.
+
+        :return: a boolean: True if user answers correct; False if not
+
+        """
         print(f"Welcome to the Level One Game! \n\n"
               f"Answer this multiple choices question:\n\n"
               f"What is the next number (X) in this sequence: \n\n"
@@ -19,7 +37,15 @@ def level_one_games(game):
             print(f"That's not {answer}. The correct answer is (1) X = 1.")
             return False
 
-    def challenge_level_one_word():
+    def challenge_level_one_word() -> bool:
+        """
+        A guess word game.
+
+        A function that tells user to guess the word.
+
+        :return: a boolean: True if user answers correct; False if not
+
+        """
         print(f"Welcome to the Easy Game! \n\n"
               f"Answer this multiple choices question:\n\n"
               f"Fill in the '_' to finish to word: \n\n"
@@ -33,6 +59,14 @@ def level_one_games(game):
             return False
 
     def challenge_level_one_riddle():
+        """
+        A riddle game.
+
+        A function that tells the user to guess the riddle.
+
+        :return: a boolean: True if user answers correct; False if not
+
+        """
         print(f"Welcome to the Easy Game! \n\n"
               f"Answer this multiple choices question:\n\n"
               f"What is the next character in this riddle? \n\n"
@@ -51,6 +85,8 @@ def level_one_games(game):
         return challenge_level_one_number()
     elif game == 'word':
         return challenge_level_one_word()
+    else:
+        return challenge_level_one_number()
 
 
 def main():
