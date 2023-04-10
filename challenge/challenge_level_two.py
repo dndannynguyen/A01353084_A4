@@ -5,8 +5,26 @@ A01353084
 
 
 def level_two_games(game):
+    """
+    A level one game.
+
+    A function that picks the game follow the input.
+
+    :param game: a string
+    :post-condition: pick and show the game correctly
+    :return: a boolean: True if user wins the game; False if not
+
+    """
 
     def challenge_level_two_number():
+        """
+        A guess number game.
+
+        A function that tells user to guess the next number.
+
+        :return: a boolean: True if user answer correct; False if not
+
+        """
         print(f"Welcome to the Level Intermediate Game! \n\n"
               f"Answer this question:\n\n"
               f"What is the next number (X) in this sequence: \n\n"
@@ -20,6 +38,14 @@ def level_two_games(game):
             return False
 
     def challenge_level_two_word_a():
+        """
+        A word guess game.
+
+        A function that tells user to guess a word.
+
+        :return: a boolean: True if user answer correct; False if not
+
+        """
         print(f"Welcome to the Intermediate Word Game! \n\n"
               f"Guess the word below: \n\n"
               f"J_v_s_rip_")
@@ -32,6 +58,14 @@ def level_two_games(game):
             return False
 
     def challenge_level_two_word_b():
+        """
+        A word guess game.
+
+        A function that tells user to guess a word.
+
+        :return: a boolean: True if user answer correct; False if not
+
+        """
         print(f"Welcome to the Intermediate Word Game! \n\n"
               f"Guess the word below: \n\n"
               f"c_a_gp_")
@@ -44,6 +78,14 @@ def level_two_games(game):
             return False
 
     def challenge_level_two_riddle():
+        """
+         A riddle guess game.
+
+        A function that tells user to guess the next riddle.
+
+        :return: a boolean: True if user answer correct; False if not
+
+        """
         print(f"Welcome to the Intermediate Riddle Game! \n\n"
               f"What is the next character in this riddle? \n\n"
               f"xoovoxoovoxoovoxo\n\n")
