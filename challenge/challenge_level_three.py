@@ -6,7 +6,11 @@ import random
 
 
 def get_secret_word():
-    all_words = ['international', 'immutable', 'javascript', 'canada', 'dictionary', 'recursion', 'iteration']
+    all_words = ["music", "coffee", "phone", "apple", "pizza", "radio", "money", "camera",
+                                    "jacket", "planet", "travel", "forest", "flower", "beauty", "nature", "guitar",
+                                    "doctor", "pirate", "jungle", "artist", "bottle", "pirate", "beacon", "summer",
+                                    "winter", "famous", "school", "memory", "friend", "health", "family", "coffee",
+                                    "laptop", "tablet", "bullet", "cookie"]
     return random.choice(all_words)
 
 
