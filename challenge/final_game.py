@@ -6,7 +6,11 @@ import random
 
 
 def get_secret_word():
-    all_words = ['international', 'immutable', 'javascript', 'canada', 'dictionary', 'recursion', 'iteration']
+    all_words = ['international', 'immutable', 'javascript', 'canada', 'dictionary',
+                 "variable", "function", "iteration", "condition", "argument", "parameter", "operation", "execution",
+                 "algorithm", "statement", "assignment", "comparison", "conversion", "collection", "selection",
+                 "indexing", "slicing", "substring", "manipulation", "validation", "generation", "randomize",
+                 "exception", "validation", "recursion", "encapsulation", 'concatenation']
     return random.choice(all_words)
 
 
@@ -16,7 +20,7 @@ def show_game_rules(allowed_errors):
           f"You have to enter the letter that you guess would appear in the word.\n"
           f"You can only make 7 wrong guesses. \n"
           f"But we added your health remaining, you now have {allowed_errors} wrong guesses.\n\n"
-          f"WARNING: THis is a final challenge, if you lose, you will lose the game!")
+          f"WARNING: This is a final challenge, so if you lose this, you will lose the game!")
 
 
 def display_hidden_word(secret_word, guesses):
