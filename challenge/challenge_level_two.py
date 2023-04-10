@@ -21,7 +21,7 @@ def level_two_games(game):
 
     def challenge_level_two_word_a():
         print(f"Welcome to the Intermediate Word Game! \n\n"
-              f"Retype the word below to cover the '_': \n\n"
+              f"Guess the word below: \n\n"
               f"J_v_s_rip_")
         answer = input(f"Answer: ")
         if answer.lower() == 'javascript' or answer.lower() == 'aact':
@@ -33,7 +33,7 @@ def level_two_games(game):
 
     def challenge_level_two_word_b():
         print(f"Welcome to the Intermediate Word Game! \n\n"
-              f"Retype the word below to cover the '_': \n\n"
+              f"Guess the word below: \n\n"
               f"c_a_gp_")
         answer = input(f"Answer: ")
         if answer.lower().strip() == 'chatgpt' or answer.lower() == 'htt':
